@@ -1,0 +1,1104 @@
+/* =================================================================== */
+/* 1. GLOBAL & BODY STYLES
+/* =================================================================== */
+
+/* --- FIX: Force Vertical Scrollbar to Prevent Layout Shift --- */
+html {
+  overflow-y: scroll;
+}
+
+body {
+  /* Force page to be slightly taller than screen so scrollbar never disappears */
+  min-height: 100.1vh;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-top: 70px; /* Navbar space */
+
+  /* Background Settings - Relative to assets/css/ folder */
+  background-image: url("../images/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transition: color 0.4s ease;
+
+  /* Page Fade In Animation */
+  animation: fadeInPage 0.6s ease-out;
+}
+
+/* Define Page Fade In Keyframes */
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+  transition: background-color 0.4s ease;
+}
+
+/* =================================================================== */
+/* 2. NAVBAR STYLES
+/* =================================================================== */
+.frosted-navbar {
+  /* UI POLISH: More transparent background (0.6) */
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar > .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.navbar-center {
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.search-bar-wrapper {
+  display: flex;
+  align-items: center;
+  /* UI POLISH: More transparent background (0.5) */
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 0 12px 0 16px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 40px;
+  transition: background-color 0.4s ease, border-color 0.4s ease,
+    box-shadow 0.2s ease;
+}
+
+.search-icon {
+  color: #888;
+  margin-right: 10px;
+  transition: color 0.4s ease;
+}
+
+.navbar .search-center .form-control {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  width: 100%;
+  box-shadow: none !important;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.search-bar-wrapper:focus-within {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.navbar .nav-icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.nav-icon-btn i {
+  color: #000000;
+  font-size: 1.1rem;
+  transition: color 0.4s ease;
+}
+
+.nav-icon-btn:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-right .d-flex {
+  gap: 0.75rem;
+}
+
+/* =================================================================== */
+/* 3. CARD & FEED STYLES
+/* =================================================================== */
+.card {
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-img-top {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.post-options i {
+  color: #000;
+  font-size: 1.2rem;
+  transition: color 0.4s ease;
+}
+
+/* --- FIX 1: POST OPTIONS DROPDOWN --- */
+/* No 'transition' or 'display' here. We let Bootstrap toggle visibility. */
+.post-options + .dropdown-menu {
+  margin-top: 0;
+}
+
+/* Animation plays ONLY when opening. Closes instantly to prevent glitch. */
+.post-options.show + .dropdown-menu {
+  animation: slideDownFade 0.2s ease-out forwards;
+}
+
+/* Card Header: Profile Pic & Username */
+.card > .d-flex.align-items-center {
+  padding: 1rem 1rem 0.5rem 1rem !important;
+}
+
+/* Card Caption */
+.caption-overlay {
+  padding: 0 1rem 0.75rem 1rem !important;
+  font-size: 0.95rem;
+}
+
+/* Card Footer: Action Icons */
+.card > .card-body {
+  padding: 0.75rem 1rem !important;
+}
+
+.card-body-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.follow-btn {
+  font-size: 0.8rem;
+  padding: 0.1rem 0.6rem;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.follow-btn.following {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+.action-btn {
+  cursor: pointer;
+}
+
+.action-btn i {
+  color: #000;
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.action-btn:hover i {
+  transform: scale(1.1) translateY(-2px);
+  opacity: 0.7;
+}
+
+.action-btn.btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.action-btn .bi-heart-fill,
+.action-btn .bi-bookmark-fill {
+  animation: pop 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.action-btn .bi-heart-fill {
+  color: #e74c3c;
+}
+
+.action-btn .bi-bookmark-fill {
+  color: #0d6efd;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Feed Tabs */
+.feed-tabs-wrapper {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.feed-tabs-wrapper .feed-tabs {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* UI POLISH: Added gap to space out the tabs */
+  gap: 1rem;
+}
+
+.feed-tabs-wrapper .feed-tab {
+  background: none;
+  border: none;
+  /* UI POLISH: Increased padding */
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+
+.feed-tabs-wrapper .feed-tab.active {
+  color: #000;
+  border-bottom-color: #000;
+  font-weight: 700;
+}
+
+.feed-tab-content .tab-pane {
+  display: none;
+}
+.feed-tab-content .tab-pane.active {
+  display: block;
+}
+
+/* =================================================================== */
+/* 4. OFF-CANVAS, MODALS & DROPDOWNS
+/* =================================================================== */
+.frosted-panel {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000;
+  backdrop-filter: blur(10px);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.offcanvas {
+  transition: transform 0.4s ease-in-out !important;
+}
+
+/* --- FIX 2: NAVBAR DROPDOWNS --- */
+/* Removed 'transition', 'display', 'opacity' from base class. */
+.navbar .dropdown-menu {
+  margin-top: 0;
+}
+
+/* Apply animation only when showing. Prevents close glitch. */
+.navbar .dropdown.show .dropdown-menu,
+.navbar .dropdown-menu.show {
+  animation: slideDownFade 0.3s ease-out forwards;
+}
+
+/* Common Animation Keyframes for dropdowns */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    margin-top: 10px; /* Start slightly lower */
+  }
+  to {
+    opacity: 1;
+    margin-top: 0; /* End in correct position */
+  }
+}
+
+.notification-dropdown {
+  width: 380px;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.notification-dropdown > li:first-child {
+  padding: 0.75rem 1rem !important;
+}
+
+.notification-dropdown .small {
+  font-size: 0.8em;
+}
+
+.notification-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  white-space: normal;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item p {
+  line-height: 1.3;
+}
+
+.settings-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.settings-fab i {
+  color: #000;
+  transition: color 0.4s ease;
+}
+
+.settings-fab:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* =================================================================== */
+/* 5. DARK MODE STYLES
+/* =================================================================== */
+body.dark-mode {
+  color: #ffffff;
+}
+
+body.dark-mode::before {
+  background-color: rgba(18, 18, 18, 0.7);
+}
+
+body.dark-mode .navbar {
+  /* UI POLISH: More transparent in dark mode (0.3) */
+  background-color: rgba(30, 30, 30, 0.3);
+}
+
+body.dark-mode .navbar-brand {
+  color: #ffffff !important;
+}
+
+body.dark-mode .nav-icon-btn i {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-icon-btn:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+body.dark-mode .search-bar-wrapper {
+  /* UI POLISH: More transparent in dark mode (0.5) */
+  background-color: rgba(44, 44, 44, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: none;
+}
+
+body.dark-mode .search-icon {
+  color: #bbbbbb;
+}
+
+body.dark-mode .navbar .search-center .form-control {
+  color: #ffffff;
+}
+
+body.dark-mode .navbar .search-center .form-control::placeholder {
+  color: #bbbbbb;
+}
+
+body.dark-mode .search-bar-wrapper:focus-within {
+  background-color: rgba(55, 55, 55, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .card {
+  background-color: rgba(30, 30, 30, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .card h1,
+body.dark-mode .card h2,
+body.dark-mode .card h3,
+body.dark-mode .card h4,
+body.dark-mode .card h5,
+body.dark-mode .card h6,
+body.dark-mode .card p {
+  color: #ffffff;
+}
+
+/* FIX: Username text color set to pure white (#ffffff) to match captions */
+body.dark-mode .card a.text-dark {
+  color: #ffffff !important;
+}
+
+body.dark-mode .card small.text-muted {
+  color: #aaa !important;
+}
+
+body.dark-mode .post-options i {
+  color: #fff;
+}
+
+body.dark-mode .action-btn i {
+  color: #fff;
+}
+
+body.dark-mode .action-btn .bi-heart-fill {
+  color: #e74c3c;
+}
+
+body.dark-mode .action-btn .bi-bookmark-fill {
+  color: #0d6efd;
+}
+
+body.dark-mode .follow-btn {
+  color: #fff;
+  border-color: #fff;
+}
+
+body.dark-mode .follow-btn.following {
+  background-color: #495057;
+  border-color: #495057;
+}
+
+/* Dark mode for Home Feed Tabs */
+body.dark-mode .feed-tabs-wrapper .feed-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .feed-tabs-wrapper .feed-tab {
+  color: #adb5bd;
+}
+
+body.dark-mode .feed-tabs-wrapper .feed-tab.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+body.dark-mode .dropdown-menu {
+  background-color: #2c2c2c;
+}
+
+body.dark-mode .notification-dropdown .dropdown-item,
+body.dark-mode .notification-dropdown h6,
+body.dark-mode .notification-dropdown .small,
+body.dark-mode .notification-dropdown strong,
+body.dark-mode .notification-dropdown .text-muted {
+  color: #fff !important;
+}
+
+body.dark-mode .navbar-right .dropdown:last-child .dropdown-header {
+  color: #adb5bd !important;
+}
+body.dark-mode
+  .navbar-right
+  .dropdown:last-child
+  .dropdown-item:not(.text-danger) {
+  color: #fff !important;
+}
+
+body.dark-mode .notification-item {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .dropdown-item:hover {
+  background-color: #444;
+}
+
+body.dark-mode .dropdown-item.text-danger {
+  color: #ff6b6b !important;
+}
+
+body.dark-mode .frosted-panel {
+  background-color: rgba(30, 30, 30, 0.85);
+  color: #f1f1f1;
+}
+
+body.dark-mode .modal-content {
+  background-color: #2c2c2c;
+  color: #f1f1f1;
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .modal-header .btn-close {
+  filter: invert(1) grayscale(100) brightness(200%);
+}
+
+body.dark-mode #createPostModal .form-control {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #createPostModal .form-control::placeholder {
+  color: #aaa;
+}
+
+body.dark-mode .settings-fab {
+  background-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .settings-fab i {
+  color: #fff;
+}
+
+body.dark-mode .settings-fab:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix: User List Modal Dark Mode Text */
+body.dark-mode #usersListModal .modal-title,
+body.dark-mode #usersListContainer span,
+body.dark-mode #usersListContainer small,
+body.dark-mode
+  #usersListContainer
+  .d-flex.align-items-center.text-decoration-none.text-dark {
+  color: #ffffff !important;
+}
+
+body.dark-mode #usersListModal .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* =================================================================== */
+/* 6. MOBILE SEARCH OVERLAY
+/* =================================================================== */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1050;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 20vh;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-overlay-content {
+  width: 90%;
+  max-width: 600px;
+}
+
+.search-overlay .form-control {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  border-radius: 0;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+.search-overlay .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-close-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.appearance-dropdown-item {
+  display: none;
+}
+
+/* =================================================================== */
+/* 7. RESPONSIVE STYLES
+/* =================================================================== */
+@media (max-width: 991.98px) {
+  .settings-fab {
+    display: none;
+  }
+  .appearance-dropdown-item {
+    display: block;
+  }
+}
+
+/* =================================================================== */
+/* 8. PROFILE PAGE STYLES
+/* =================================================================== */
+.profile-header .cover-photo {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.profile-header .cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-picture {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-top: -65px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.profile-info h2 {
+  font-weight: 700;
+}
+
+.profile-stats,
+.profile-stats strong {
+  color: #000;
+}
+
+.profile-tabs-wrapper .feed-tabs {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* UI POLISH: Added gap to space out the tabs */
+  gap: 1rem;
+}
+
+.profile-tabs-wrapper .feed-tab {
+  background: none;
+  border: none;
+  /* UI POLISH: Increased padding */
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: #495057;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+
+.profile-tabs-wrapper .feed-tab.active {
+  color: #000;
+  border-bottom-color: #000;
+  font-weight: 700;
+}
+
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+
+.profile-grid-container img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-grid-container img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.empty-state-card {
+  background-color: transparent;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
+
+.empty-state-card h5 {
+  color: #000;
+}
+
+.empty-state-card .text-muted {
+  color: #6c757d !important;
+}
+
+/* Dark Mode Profile */
+body.dark-mode .profile-info h2,
+body.dark-mode .profile-info .text-muted,
+body.dark-mode .profile-actions .dropdown-item {
+  color: #fff !important;
+}
+
+body.dark-mode .profile-picture {
+  border-color: #2c2c2c;
+}
+
+body.dark-mode .profile-stats {
+  color: #adb5bd !important;
+}
+
+body.dark-mode .profile-stats strong {
+  color: #fff;
+}
+
+body.dark-mode .profile-tabs-wrapper .feed-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .profile-tabs-wrapper .feed-tab {
+  color: #adb5bd;
+}
+
+body.dark-mode .profile-tabs-wrapper .feed-tab.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+body.dark-mode .empty-state-card {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .empty-state-card i,
+body.dark-mode .empty-state-card h5 {
+  color: #fff;
+}
+
+body.dark-mode .empty-state-card .text-muted {
+  color: #adb5bd !important;
+}
+
+/* =================================================================== */
+/* 9. EDIT PROFILE MODAL
+/* =================================================================== */
+#editProfileModal .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.edit-cover-photo {
+  position: relative;
+  height: 150px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.edit-cover-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-profile-photo {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.edit-cover-photo:hover .edit-photo-overlay,
+.edit-profile-photo:hover .edit-photo-overlay {
+  opacity: 1;
+}
+
+body.dark-mode .edit-cover-photo,
+body.dark-mode .edit-profile-photo {
+  background-color: #343a40;
+}
+
+body.dark-mode .edit-profile-photo {
+  border-color: #495057;
+}
+
+/* =================================================================== */
+/* 10. IMAGE CROPPER
+/* =================================================================== */
+.cropper-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+#imageToCrop {
+  display: block;
+  max-width: 100%;
+}
+
+/* =================================================================== */
+/* 11. NOTIFICATIONS
+/* =================================================================== */
+.notification-page-item {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-page-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+body.dark-mode .notification-page-item {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .full-notification-list .text-muted {
+  color: #aaa !important;
+}
+
+body.dark-mode .full-notification-list strong {
+  color: #fff !important;
+}
+
+/* =================================================================== */
+/* 12. SETTINGS PAGE
+/* =================================================================== */
+.nav-pills .nav-link {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+  font-weight: 600;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .nav-pills .nav-link {
+  color: #f1f1f1;
+}
+
+body.dark-mode .nav-pills .nav-link.active,
+body.dark-mode .nav-pills .show > .nav-link {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+body.dark-mode .nav-pills .nav-link:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .card h3,
+body.dark-mode .card h5,
+body.dark-mode .card p,
+body.dark-mode .card label,
+body.dark-mode .card .form-text {
+  color: #f1f1f1;
+}
+
+body.dark-mode .card .form-control {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .card .form-control:focus {
+  background-color: rgba(60, 60, 60, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* =================================================================== */
+/* 13. COMMENTS MODAL
+/* =================================================================== */
+.reply-btn:hover {
+  text-decoration: underline !important;
+}
+
+body.dark-mode .reply-btn:hover {
+  color: #fff !important;
+}
+
+/* =================================================================== */
+/* 14. SEARCH RESULTS
+/* =================================================================== */
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.search-result-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.search-result-item .post-thumbnail {
+  border-radius: 8px;
+}
+
+.search-result-item-info {
+  flex-grow: 1;
+}
+
+.search-result-item-info p {
+  margin-bottom: 0.1rem;
+}
+
+body.dark-mode .search-result-item {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .search-result-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .search-result-item-info .text-muted {
+  color: #aaa !important;
+}
+
+/* =================================================================== */
+/* 15. AUTHENTICATION
+/* =================================================================== */
+.auth-container {
+  min-height: calc(100vh - 70px);
+}
+
+.auth-card {
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.dark-mode .auth-card {
+  background-color: rgba(30, 30, 30, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .auth-card h2,
+body.dark-mode .auth-card label,
+body.dark-mode .auth-card small {
+  color: #f1f1f1;
+}
+
+body.dark-mode .auth-card a {
+  color: #58a6ff;
+}
+
+body.dark-mode .auth-card .form-control {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .auth-card .form-control:focus {
+  background-color: rgba(60, 60, 60, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* =================================================================== */
+/* 16. TAB FADE ANIMATION
+/* =================================================================== */
+.tab-pane.active {
+  animation: fadeUpTab 0.4s ease-out forwards;
+}
+
+@keyframes fadeUpTab {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
